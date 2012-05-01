@@ -1,8 +1,18 @@
 var guessesLeft = 10;
-var highScores = new Array([9, "HarryJamesPotter"], [3, "ZedCthulhu"], [2, "NearlyDied"]);
+var highScores = new Array();
 var number=0;
 var theGuess;
 var win;
+
+function getHighScores(){
+	$.getJSON("http://localhost:3000/scores.json", function(data){
+		//alert(data);
+		$.each(data, function(obj){
+			highScores.push(new Array(data[obj]['score'], data[obj]['name']));
+		});
+		populateHighScores(highScores);
+	});
+}
 
 function generateRandomNumber(){
 	number = Math.floor((Math.random()*100)+1);
@@ -16,7 +26,7 @@ function test(){
 $(function() {
   updateScore(guessesLeft);
   highScores.sort(customSort);
-  populateHighScores(highScores);
+  getHighScores();
   generateRandomNumber();
   win = false;
 });
@@ -25,7 +35,7 @@ function reset(){
 	guessesLeft = 10;
 	updateScore(guessesLeft);
   	highScores.sort(customSort);
-  	populateHighScores(highScores);
+  	getHighScores();
   	generateRandomNumber();
   	$('h2#score span#reset').empty();
   	$('h2#score span#highLow').empty();
