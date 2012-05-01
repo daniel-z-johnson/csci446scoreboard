@@ -1,10 +1,11 @@
 var guessesLeft = 10;
-var highScores = new Array();
+var highScores;
 var number=0;
 var theGuess;
 var win;
 
 function getHighScores(){
+	highScores = new Array();
 	$.getJSON("http://localhost:3000/scores.json", function(data){
 		//alert(data);
 		$.each(data, function(obj){
