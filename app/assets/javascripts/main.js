@@ -6,7 +6,7 @@ var win;
 
 function getHighScores(){
 	highScores = new Array();
-	$.getJSON("http://localhost:3000/scores.json", function(data){
+	$.getJSON("/scores.json", function(data){
 		//alert(data);
 		$.each(data, function(obj){
 			highScores.push(new Array(data[obj]['score'], data[obj]['name']));

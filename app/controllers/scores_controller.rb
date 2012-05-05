@@ -41,7 +41,6 @@ class ScoresController < ApplicationController
   # POST /scores.json
   def create
     @score = Score.new(:name => params[:name], :score => params[:score])
-    logger.info "Name!!!!!!!!!!  #{params}"
 
     respond_to do |format|
       if @score.save
