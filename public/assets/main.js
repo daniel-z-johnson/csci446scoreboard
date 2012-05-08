@@ -5,9 +5,9 @@ var theGuess;
 var win;
 
 function quickFix(str){
-	str = str.replace(/&/,"&amp;");
-	str = str.replace(/</,"&lt;");
-	str = str.replace(/>/,"&gt;");
+	str = str.replace(/&/g,"&amp;");
+	str = str.replace(/</g,"&lt;");
+	str = str.replace(/>/g,"&gt;");
 
 	return str;
 }
