@@ -79,7 +79,7 @@ function guessNumber(){
 			// highScores.push([guessesLeft,name]);
 			// highScores.sort(customSort);
   	// 		populateHighScores(highScores);
-			// win = true;
+			win = true;
 			++guessesLeft;
 			playAgain();
 
