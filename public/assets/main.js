@@ -8,6 +8,7 @@ function quickFix(str){
 	str = str.replace(/&/g,"&amp;");
 	str = str.replace(/</g,"&lt;");
 	str = str.replace(/>/g,"&gt;");
+	str = $.trim(str);
 
 	return str;
 }
@@ -15,7 +16,6 @@ function quickFix(str){
 function getHighScores(){
 	highScores = new Array();
 	$.getJSON("/scores.json", function(data){
-		//alert(data);
 		$.each(data, function(obj){
 			highScores.push(new Array(data[obj]['score'], data[obj]['name']));
 		});
@@ -34,7 +34,6 @@ function test(){
 
 $(function() {
   updateScore(guessesLeft);
-  // highScores.sort(customSort);
   getHighScores();
   generateRandomNumber();
   win = false;
@@ -43,7 +42,6 @@ $(function() {
 function reset(){	
 	guessesLeft = 10;
 	updateScore(guessesLeft);
-  	// highScores.sort(customSort);
   	getHighScores();
   	generateRandomNumber();
   	$('h2#score span#reset').empty();
@@ -79,15 +77,13 @@ function guessNumber(){
 			hint("You Win with a score of " + guessesLeft);
 			var name = prompt("You won, now enter your name or suffer...");
 			name = quickFix(name);
-			//var newScore = {"name":name, "score":guessesLeft};
 			var obj = new Object();
 			obj.name = name;
 			obj.score = guessesLeft;
-			$.post("/scores.json", obj);
+			if (name){
+				$.post("/scores.json", obj);
+			}
 			getHighScores();
-			// highScores.push([guessesLeft,name]);
-			// highScores.sort(customSort);
-  	// 		populateHighScores(highScores);
 			win = true;
 			++guessesLeft;
 			playAgain();
