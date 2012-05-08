@@ -4,6 +4,14 @@ var number=0;
 var theGuess;
 var win;
 
+function quickFix(str){
+	str = str.replace(/&/,"&amp;");
+	str = str.replace(/</,"&lt;");
+	str = str.replace(/>/,"&gt;");
+
+	return str;
+}
+
 function getHighScores(){
 	highScores = new Array();
 	$.getJSON("/scores.json", function(data){
@@ -70,6 +78,7 @@ function guessNumber(){
 		if(theGuess == number){
 			hint("You Win with a score of " + guessesLeft);
 			var name = prompt("You won, now enter your name or suffer...");
+			name = quickFix(name);
 			//var newScore = {"name":name, "score":guessesLeft};
 			var obj = new Object();
 			obj.name = name;
